@@ -33,8 +33,6 @@ void insert(int val)
     t->link = temp;
 }
 
-
-
 // void Delete(int val)
 // {
 //     if (head == 0)
@@ -77,7 +75,6 @@ void insert(int val)
 //     cout << "Value deleted!" << endl
 //          << endl;
 // }
-
 void print() // same
 {
     node *t = head;
@@ -101,8 +98,7 @@ void print() // same
          << endl;
 }
 
-
-void Delete(int pos) // same
+void Delete(int pos)
 {
     if (head == 0)
     {
@@ -126,6 +122,8 @@ void Delete(int pos) // same
 
         cout << "Node deleted successfully" << endl
              << endl;
+        cout << "After Deletion: " << endl;
+        print();
         return;
     }
 
@@ -150,6 +148,8 @@ void Delete(int pos) // same
 
     cout << "Node deleted successfully" << endl
          << endl;
+    cout << "After Deletion: " << endl;
+    print();
 }
 
 void search(int item) // same
@@ -174,7 +174,6 @@ void search(int item) // same
     cout << "Item not found!" << endl
          << endl;
 }
-
 
 int main()
 {
@@ -223,8 +222,8 @@ int main()
             cin >> val;
             Delete(val);
 
-            cout << "After Deletion: " << endl;
-            print();
+            // cout << "After Deletion: " << endl;
+            // print();
         }
         else if (choice == 3)
         {
