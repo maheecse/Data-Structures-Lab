@@ -1,0 +1,254 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+    int data;
+    node *link;
+};
+
+node *head = 0;
+
+void insert(int val)
+{
+    node *temp = new node;
+    temp->data = val;
+    temp->link = 0;
+
+    if (head == 0 || val < head->data)
+    {
+        temp->link = head;
+        head = temp;
+        return;
+    }
+
+    node *t = head;
+
+    while (t->link != 0 && t->link->data < val)
+    {
+        t = t->link;
+    }
+
+    temp->link = t->link;
+    t->link = temp;
+}
+
+
+
+// void Delete(int val)
+// {
+//     if (head == 0)
+//     {
+//         cout << "List is empty!" << endl
+//              << endl;
+//         return;
+//     }
+
+//     node *t = head;
+
+//     if (t->data == val)
+//     {
+//         head = t->link;
+//         delete t;
+
+//         cout << "Value deleted!" << endl
+//              << endl;
+//         return;
+//     }
+
+//     node *prev = 0;
+
+//     while (t != 0 && t->data != val)
+//     {
+//         prev = t;
+//         t = t->link;
+//     }
+
+//     if (t == 0)
+//     {
+//         cout << "Value not found!" << endl
+//              << endl;
+//         return;
+//     }
+
+//     prev->link = t->link;
+//     delete t;
+
+//     cout << "Value deleted!" << endl
+//          << endl;
+// }
+
+
+
+
+void Delete(int pos) // same
+{
+    if (head == 0)
+    {
+        cout << "List is empty!" << endl
+             << endl;
+        return;
+    }
+
+    if (pos < 1)
+    {
+        cout << "Invalid position!" << endl
+             << endl;
+        return;
+    }
+
+    if (pos == 1)
+    {
+        node *t = head;
+        head = t->link;
+        delete t;
+
+        cout << "Node deleted successfully" << endl
+             << endl;
+        return;
+    }
+
+    node *t = head;
+    node *prev;
+
+    for (int i = 1; i < pos; i++)
+    {
+        prev = t;
+        t = t->link;
+
+        if (t == 0)
+        {
+            cout << "Invalid position!" << endl
+                 << endl;
+            return;
+        }
+    }
+
+    prev->link = t->link;
+    delete t;
+
+    cout << "Node deleted successfully" << endl
+         << endl;
+}
+
+void search(int item) // same
+{
+    node *t = head;
+    int pos = 1;
+
+    while (t != 0)
+    {
+        if (t->data == item)
+        {
+            cout << "Item found!" << endl;
+            cout << "Position: " << pos << endl
+                 << endl;
+            return;
+        }
+
+        t = t->link;
+        pos++;
+    }
+
+    cout << "Item not found!" << endl
+         << endl;
+}
+
+void print() // same
+{
+    node *t = head;
+
+    if (head == 0)
+    {
+        cout << "List is empty!" << endl
+             << endl;
+        return;
+    }
+
+    cout << "Sorted Linked List: ";
+
+    while (t != 0)
+    {
+        cout << t->data << " ";
+        t = t->link;
+    }
+
+    cout << endl
+         << endl;
+}
+
+int main()
+{
+    int choice, val;
+    int n = 20;
+
+    srand(time(0));
+
+    for (int i = 0; i < n; i++)
+    {
+        int num = rand() % 10000;
+        insert(num);
+    }
+
+    while (true)
+    {
+        cout << endl;
+        cout << "============================" << endl;
+        cout << "     SORTED LINKED LIST" << endl;
+        cout << "============================" << endl;
+        cout << "1. Insert" << endl;
+        cout << "2. Delete" << endl;
+        cout << "3. Search" << endl;
+        cout << "4. Display" << endl;
+        cout << "5. Exit" << endl;
+        cout << "============================" << endl;
+
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        cout << endl;
+
+        if (choice == 1)
+        {
+            cout << "Enter value: ";
+            cin >> val;
+
+            insert(val);
+
+            cout << "Value inserted!" << endl
+                 << endl;
+        }
+        else if (choice == 2)
+        {
+            cout << "Enter position: ";
+            cin >> val;
+            Delete(val);
+
+            cout << "After Deletion: " << endl;
+            print();
+        }
+        else if (choice == 3)
+        {
+            cout << "Enter value: ";
+            cin >> val;
+
+            search(val);
+        }
+        else if (choice == 4)
+        {
+            print();
+        }
+        else if (choice == 5)
+        {
+            cout << "Program Exit!" << endl;
+            break;
+        }
+        else
+        {
+            cout << "Invalid Choice!" << endl
+                 << endl;
+        }
+    }
+
+    return 0;
+}
