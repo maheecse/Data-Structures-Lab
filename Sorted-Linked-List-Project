@@ -78,7 +78,28 @@ void insert(int val)
 //          << endl;
 // }
 
+void print() // same
+{
+    node *t = head;
 
+    if (head == 0)
+    {
+        cout << "List is empty!" << endl
+             << endl;
+        return;
+    }
+
+    cout << "Sorted Linked List: ";
+
+    while (t != 0)
+    {
+        cout << t->data << " ";
+        t = t->link;
+    }
+
+    cout << endl
+         << endl;
+}
 
 
 void Delete(int pos) // same
@@ -154,28 +175,6 @@ void search(int item) // same
          << endl;
 }
 
-void print() // same
-{
-    node *t = head;
-
-    if (head == 0)
-    {
-        cout << "List is empty!" << endl
-             << endl;
-        return;
-    }
-
-    cout << "Sorted Linked List: ";
-
-    while (t != 0)
-    {
-        cout << t->data << " ";
-        t = t->link;
-    }
-
-    cout << endl
-         << endl;
-}
 
 int main()
 {
