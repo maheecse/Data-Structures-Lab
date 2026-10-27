@@ -33,49 +33,7 @@ void insert(int val)
     t->link = temp;
 }
 
-// void Delete(int val)
-// {
-//     if (head == 0)
-//     {
-//         cout << "List is empty!" << endl
-//              << endl;
-//         return;
-//     }
-
-//     node *t = head;
-
-//     if (t->data == val)
-//     {
-//         head = t->link;
-//         delete t;
-
-//         cout << "Value deleted!" << endl
-//              << endl;
-//         return;
-//     }
-
-//     node *prev = 0;
-
-//     while (t != 0 && t->data != val)
-//     {
-//         prev = t;
-//         t = t->link;
-//     }
-
-//     if (t == 0)
-//     {
-//         cout << "Value not found!" << endl
-//              << endl;
-//         return;
-//     }
-
-//     prev->link = t->link;
-//     delete t;
-
-//     cout << "Value deleted!" << endl
-//          << endl;
-// }
-void print() // same
+void print()
 {
     node *t = head;
 
@@ -83,6 +41,7 @@ void print() // same
     {
         cout << "List is empty!" << endl
              << endl;
+
         return;
     }
 
@@ -98,61 +57,51 @@ void print() // same
          << endl;
 }
 
-void Delete(int pos)
+void Delete(int val)
 {
     if (head == 0)
     {
-        cout << "List is empty!" << endl
-             << endl;
-        return;
-    }
-
-    if (pos < 1)
-    {
-        cout << "Invalid position!" << endl
-             << endl;
-        return;
-    }
-
-    if (pos == 1)
-    {
-        node *t = head;
-        head = t->link;
-        delete t;
-
-        cout << "Node deleted successfully" << endl
-             << endl;
-        cout << "After Deletion: " << endl;
-        print();
+        cout << "List is empty!" << endl;
+        cout << endl;
         return;
     }
 
     node *t = head;
+
+    if (t->data == val)
+    {
+        head = t->link;
+        delete t;
+
+        cout << "Value deleted!" << endl;
+        cout << endl;
+        return;
+    }
+
     node *prev;
 
-    for (int i = 1; i < pos; i++)
+    while (t != 0 && t->data != val)
     {
         prev = t;
         t = t->link;
+    }
 
-        if (t == 0)
-        {
-            cout << "Invalid position!" << endl
-                 << endl;
-            return;
-        }
+    if (t == 0)
+    {
+        cout << "Value not found!" << endl;
+        cout << endl;
+        return;
     }
 
     prev->link = t->link;
     delete t;
 
-    cout << "Node deleted successfully" << endl
-         << endl;
-    cout << "After Deletion: " << endl;
-    print();
+    cout << "Value deleted!" << endl;
+    cout << endl;
 }
 
-void search(int item) // same
+
+void search(int item)
 {
     node *t = head;
     int pos = 1;
@@ -175,36 +124,46 @@ void search(int item) // same
          << endl;
 }
 
-int main()
+
+void randomInsert()
 {
-    int choice, val;
-    int n = 20;
+    int n;
+
+    cout << "Enter number of nodes: ";
+    cin >> n;
 
     srand(time(0));
 
     for (int i = 0; i < n; i++)
     {
-        int num = rand() % 10000;
+        int num = rand();
         insert(num);
     }
 
+    cout << n << " nodes inserted successfully!" << endl;
+    system("pause");
+}
+
+void menu()
+{
+    int choice, val;
+
     while (true)
     {
+        system("cls");
         cout << endl;
-        cout << "============================" << endl;
-        cout << "     SORTED LINKED LIST" << endl;
-        cout << "============================" << endl;
+        cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+        cout << "     Sorted Linked List     " << endl;
+        cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl
+             << endl;
         cout << "1. Insert" << endl;
         cout << "2. Delete" << endl;
         cout << "3. Search" << endl;
         cout << "4. Display" << endl;
         cout << "5. Exit" << endl;
-        cout << "============================" << endl;
-
+        cout << "----------------------------" << endl;
         cout << "Enter choice: ";
         cin >> choice;
-
-        cout << endl;
 
         if (choice == 1)
         {
@@ -213,17 +172,18 @@ int main()
 
             insert(val);
 
-            cout << "Value inserted!" << endl
-                 << endl;
+            cout << "Value inserted!" << endl;
+
+            system("pause");
         }
         else if (choice == 2)
         {
-            cout << "Enter position: ";
+            cout << "Enter value: ";
             cin >> val;
+
             Delete(val);
 
-            // cout << "After Deletion: " << endl;
-            // print();
+            system("pause");
         }
         else if (choice == 3)
         {
@@ -231,10 +191,13 @@ int main()
             cin >> val;
 
             search(val);
+
+            system("pause");
         }
         else if (choice == 4)
         {
             print();
+            system("pause");
         }
         else if (choice == 5)
         {
@@ -243,10 +206,16 @@ int main()
         }
         else
         {
-            cout << "Invalid Choice!" << endl
-                 << endl;
+            cout << "Invalid Choice!" << endl;
         }
     }
+}
+
+int main()
+{
+
+    randomInsert();
+    menu();
 
     return 0;
 }
