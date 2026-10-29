@@ -1,0 +1,237 @@
+#include <bits/stdc++.h>
+#include <new>
+using namespace std;
+
+struct node
+{
+    int data;
+    node *link;
+};
+
+node *head = 0;
+
+void insert(int val) // sorted insert
+{
+    node *temp = new (nothrow) node;
+    if (temp == 0)
+    {
+        cout << "Memory allocation failed!" << endl;
+        return;
+    }
+
+    temp->data = val;
+    temp->link = 0;
+
+    if (head == 0 || val < head->data)
+    {
+        temp->link = head;
+        head = temp;
+        return;
+    }
+    node *t = head;
+    while (t->link != 0 && t->link->data <= val)
+    {
+        t = t->link;
+    }
+
+    temp->link = t->link;
+    t->link = temp;
+}
+
+void print()
+{
+    node *t = head;
+
+    if (head == 0)
+    {
+        cout << "List is empty!" << endl
+             << endl;
+        return;
+    }
+
+    cout << "Sorted Linked List: ";
+
+    while (t != 0)
+    {
+        cout << t->data << " ";
+        t = t->link;
+    }
+    cout << endl
+         << endl;
+}
+
+void Delete(int val)
+{
+    if (head == 0)
+    {
+        cout << "List is empty!" << endl;
+        cout << endl;
+        return;
+    }
+
+    node *t = head;
+    node *prev = 0;
+    node *last = 0;
+    node *lastPrev = 0;
+
+    while (t != 0 && t->data <= val)
+    {
+        if (t->data == val)
+        {
+            last = t;
+            lastPrev = prev;
+        }
+        prev = t;
+        t = t->link;
+    }
+
+    if (last == 0)
+    {
+        cout << "Value not found!" << endl;
+        cout << endl;
+        return;
+    }
+    if (lastPrev == 0)
+    {
+        head = last->link;
+    }
+    else
+    {
+        lastPrev->link = last->link;
+    }
+    delete last;
+    cout << "Value deleted!" << endl;
+    cout << endl;
+}
+
+void search(int item)
+{
+    node *t = head;
+    int pos = 1;
+
+    while (t != 0 && t->data <= item)
+    {
+        if (t->data == item)
+        {
+            cout << "Item found!" << endl;
+            cout << "Position: " << pos << endl
+                 << endl;
+            return;
+        }
+        t = t->link;
+        pos++;
+    }
+
+    cout << "Item not found!" << endl
+         << endl;
+}
+
+void randomInsert()
+{
+    int n;
+    cout << "Enter number of nodes: ";
+    cin >> n;
+
+    if (n < 0)
+    {
+        cout << "Invalid number!" << endl;
+        return;
+    }
+
+    srand(time(0));
+
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = rand();
+    }
+
+    cout << "Before Sorting: ";
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl
+         << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        insert(arr[i]);
+    }
+
+    cout << "After Sorting:" << endl;
+    print();
+    system("pause");
+}
+
+void menu()
+{
+    int choice, val;
+
+    while (true)
+    {
+        system("cls");
+        cout << endl;
+        cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl;
+        cout << "     Sorted Linked List     " << endl;
+        cout << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-" << endl
+             << endl;
+        cout << "1. Insert" << endl;
+        cout << "2. Delete" << endl;
+        cout << "3. Search" << endl;
+        cout << "4. Display" << endl;
+        cout << "5. Exit" << endl;
+        cout << "----------------------------" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            cout << "Enter value: ";
+            cin >> val;
+
+            insert(val);
+
+            cout << "Value inserted!" << endl;
+
+            system("pause");
+        }
+        else if (choice == 2)
+        {
+            cout << "Enter value: ";
+            cin >> val;
+
+            Delete(val);
+
+            system("pause");
+        }
+        else if (choice == 3)
+        {
+            cout << "Enter value: ";
+            cin >> val;
+            search(val);
+            system("pause");
+        }
+        else if (choice == 4)
+        {
+            print();
+            system("pause");
+        }
+        else if (choice == 5)
+        {
+            cout << "Program Exit!" << endl;
+            break;
+        }
+        else
+        {
+            cout << "Invalid Choice!" << endl;
+            system("pause");
+        }
+    }
+}
+int main()
+{
+    randomInsert();
+    menu();
+    return 0;
+}
